@@ -79,12 +79,12 @@ export default function Navbar() {
   const path = usePathname();
   const [drawerOpen, setDrawerOpen] = useState(false);
   return (
-    <div className="flex items-center justify-between">
+    <div className="grid grid-cols-2 md:grid-cols-3 items-center">
       <Link href="/" className="text-2xl font-bold">
         Boilerthings
       </Link>
 
-      <div className="items-center hidden gap-4 md:flex">
+      <div className="items-center hidden gap-4 md:flex justify-center">
         {navLinks.map((navLink) => (
           <NavLink
             key={navLink.href}
@@ -93,7 +93,7 @@ export default function Navbar() {
           />
         ))}
       </div>
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2 justify-end">
         <ToggleDarkmode />
         <div className="md:hidden">
           <Drawer

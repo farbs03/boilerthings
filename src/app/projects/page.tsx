@@ -20,7 +20,7 @@ export default function Projects() {
     },
     {
       title: "BoilerBookings",
-      image: "BoilerBookings.png",
+      image: "BoilerBookings.webp",
       url: "https://boilerbookings.com/",
       urlText: "boilerbookings.com",
       category: "Education",
@@ -36,7 +36,7 @@ export default function Projects() {
     },
     {
       title: "BoilerGrades",
-      image: "BoilerGrades.png",
+      image: "BoilerGrades.svg",
       url: "https://boilergrades.com/",
       urlText: "boilergrades.com",
       category: "Education",
@@ -45,7 +45,7 @@ export default function Projects() {
   ];
   return (
     <div>
-      <p className="mb-8 text-3xl font-bold">Projects</p>
+      <p className="mb-8 text-3xl font-bold text-center">Projects</p>
       <div className="grid justify-center w-full grid-cols-1 gap-8 mx-auto md:grid-cols-2">
         {projects.map((project) => (
           <a key={project.title} href={project.url} target="_blank">
