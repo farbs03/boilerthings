@@ -17,7 +17,7 @@ export default function RootLayout({
     <html lang="en">
       <ThemeProvider
         attribute="class"
-        defaultTheme="system"
+        defaultTheme="light"
         enableSystem
         storageKey="boilerthings-theme"
       >
