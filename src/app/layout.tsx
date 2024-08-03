@@ -21,10 +21,10 @@ export default function RootLayout({
         enableSystem
         storageKey="boilerthings-theme"
       >
-        <body className="bg-white dark:bg-zinc-900 dark:text-white ">
-          <div className="max-w-5xl w-full mx-auto p-4 flex flex-col min-h-screen">
+        <body className="bg-white dark:bg-zinc-900 dark:text-white">
+          <div className="flex flex-col w-full max-w-6xl min-h-screen p-4 mx-auto">
             <Navbar />
-            <div className="flex-grow">{children}</div>
+            <div className="flex-grow mt-8">{children}</div>
           </div>
         </body>
       </ThemeProvider>

@@ -6,14 +6,9 @@ import {
   Drawer,
   DrawerClose,
   DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import {
-  GroupIcon,
   InfoIcon,
   LibraryBigIcon,
   MenuIcon,
@@ -40,9 +35,9 @@ const NavLink = ({
       className={`
         font-medium 
         dark:hover:text-primary 
-        hover:bg-gray-100 
-        dark:hover:bg-zinc-800
-        ${active ? "bg-gray-100 dark:bg-zinc-800 dark:text-primary" : ""}
+        hover:bg-zinc-100
+        dark:hover:bg-white/10
+        ${active ? "bg-zinc-100 dark:bg-white/10 dark:text-primary" : ""}
         transition 
         duration-100 
         ease-in 
@@ -66,9 +61,9 @@ const NavLink = ({
 export default function Navbar() {
   const navLinks: NavLinkInfo[] = [
     {
-      title: "About",
-      href: "/about",
-      icon: <InfoIcon />,
+      title: "Projects",
+      href: "/projects",
+      icon: <LibraryBigIcon />,
     },
     {
       title: "Team",
@@ -76,20 +71,20 @@ export default function Navbar() {
       icon: <UsersIcon />,
     },
     {
-      title: "Projects",
-      href: "/projects",
-      icon: <LibraryBigIcon />,
+      title: "About",
+      href: "/about",
+      icon: <InfoIcon />,
     },
   ];
   const path = usePathname();
   const [drawerOpen, setDrawerOpen] = useState(false);
   return (
     <div className="flex items-center justify-between">
-      <Link href="/" className="font-bold text-2xl">
+      <Link href="/" className="text-2xl font-bold">
         Boilerthings
       </Link>
 
-      <div className="hidden md:flex items-center gap-4">
+      <div className="items-center hidden gap-4 md:flex">
         {navLinks.map((navLink) => (
           <NavLink
             key={navLink.href}
