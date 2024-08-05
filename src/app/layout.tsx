@@ -14,20 +14,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <ThemeProvider
-        attribute="class"
-        defaultTheme="light"
-        enableSystem
-        storageKey="boilerthings-theme"
-      >
-        <body className="bg-white dark:bg-zinc-900 dark:text-white">
-          <div className="flex flex-col w-full max-w-6xl min-h-screen p-4 mx-auto">
-            <Navbar />
-            <div className="flex-grow mt-8">{children}</div>
+    <html lang="en" suppressHydrationWarning>
+      <body>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
+          enableSystem
+          storageKey="boilerthings-theme"
+        >
+          <div className="bg-white dark:bg-zinc-900 dark:text-white">
+            <div className="flex flex-col w-full max-w-6xl min-h-screen p-4 mx-auto">
+              <Navbar />
+              <div className="flex-grow mt-8">{children}</div>
+            </div>
           </div>
-        </body>
-      </ThemeProvider>
+        </ThemeProvider>
+      </body>
     </html>
   );
 }

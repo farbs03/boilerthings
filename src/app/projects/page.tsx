@@ -48,9 +48,7 @@ export default function Projects() {
       <p className="mb-8 text-3xl font-bold text-center">Projects</p>
       <div className="grid justify-center w-full grid-cols-1 gap-8 mx-auto md:grid-cols-2">
         {projects.map((project) => (
-          <a key={project.title} href={project.url} target="_blank">
-            <ProjectCard project={project} />
-          </a>
+          <ProjectCard key={project.title} project={project} />
         ))}
       </div>
     </div>

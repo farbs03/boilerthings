@@ -6,8 +6,11 @@ import {
   Drawer,
   DrawerClose,
   DrawerContent,
+  DrawerDescription,
+  DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
+import { Drawer as DrawerPrimitive } from "vaul";
 import {
   InfoIcon,
   LibraryBigIcon,
@@ -108,6 +111,8 @@ export default function Navbar() {
               <DrawerClose>
                 <XIcon />
               </DrawerClose>
+              <DrawerTitle className="hidden" />
+              <DrawerDescription className="hidden" />
               {navLinks.map((navLink) => (
                 <NavLink
                   key={navLink.href}
