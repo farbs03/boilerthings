@@ -1,123 +1,94 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-
-import { toast } from "@/hooks/use-toast";
-import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import React from 'react';
+import { useForm } from 'react-hook-form';
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+import { Textarea } from '@/components/ui/textarea';
+import { Button } from '@/components/ui/button';
+import { sendApplication } from './sendApplication';
 
-const MAX_FILE_SIZE = 500000;
-const ACCEPTED_IMAGE_TYPES = [
-  "application/pdf",
-  "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-];
+function ApplicationForm() {
+  const { register, handleSubmit, formState: { errors } } = useForm();
 
-const FormSchema = z.object({
-  name: z.string({ message: "Provide your full name." }).min(1).max(250),
-  email: z.string().email({
-    message: "Must provide a valid email!",
-  }),
-  resume: z.any(),
-  whyApply: z.string().max(3750),
-});
-
-export default function Apply() {
-  const form = useForm<z.infer<typeof FormSchema>>({
-    resolver: zodResolver(FormSchema),
-    defaultValues: {
-      name: "",
-      email: "",
-      resume: "",
-      whyApply: "",
-    },
-  });
-
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    toast({
-      title: "You submitted the following values:",
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    });
-  }
+  const onSubmit = (data: any) => {
+    const formData = new FormData();
+    formData.append("name", data.name);
+    formData.append('email', data.email);
+    formData.append("resume", data.resume[0]);
+    formData.append("whyApply", data.whyApply);
+    
+    const resp = sendApplication(formData);
+    console.log(resp);
+    // Handle form submission
+  };
 
   return (
-    <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="w-1/2 space-y-6 mx-auto"
-      >
-        <FormField
-          control={form.control}
-          name="name"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Name</FormLabel>
-              <FormControl>
-                <Input placeholder="Full name" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 max-w-md mx-auto p-4 bg-white shadow-md rounded-md">
+      {/* Name field */}
+      <div>
+        <label className="block text-sm font-medium text-gray-700">Name</label>
+        <Input
+          type="text"
+          {...register('name', { required: 'Name is required' })}
+          placeholder="Enter your name"
+          className="mt-1 block w-full"
+          maxLength={50}
+          required
         />
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input placeholder="Email" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+        {errors.name && <span className="text-red-500 text-sm">{errors.name.message?.toString()}</span>}
+      </div>
+
+      {/* Email field */}
+      <div>
+        <label className="block text-sm font-medium text-gray-700">Email</label>
+        <Input
+          type="email"
+          {...register('email', { 
+            required: 'Email is required', 
+            pattern: {
+              value: /^\S+@\S+$/i,
+              message: 'Invalid email address'
+            } 
+          })}
+          placeholder="Enter your email"
+          className="mt-1 block w-full"
+          maxLength={50}
+          required
         />
-        <FormField
-          control={form.control}
-          name="resume"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Upload resume</FormLabel>
-              <FormControl>
-                <Input type="file" accept="application/pdf" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+        {errors.email && <span className="text-red-500 text-sm">{errors.email.message?.toString()}</span>}
+      </div>
+
+      {/* Resume field */}
+      <div>
+        <label className="block text-sm font-medium text-gray-700">Resume</label>
+        <Input
+          type="file"
+          {...register('resume', { required: 'Resume is required' })}
+          className="mt-1 block w-full"
+          accept='application/pdf'
+          required
         />
-        <FormField
-          control={form.control}
-          name="whyApply"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Why do you want to join us?</FormLabel>
-              <FormControl>
-                <Textarea
-                  placeholder="Feel free to include specific projects you're interested in working on."
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+        {errors.resume && <span className="text-red-500 text-sm">{errors.resume.message?.toString()}</span>}
+      </div>
+
+      {/* Why do you want to apply field */}
+      <div>
+        <label className="block text-sm font-medium text-gray-700">Why do you want to apply?</label>
+        <Textarea
+          {...register('whyApply', {required: "Why apply is required"})}
+          placeholder="Add any other relevant information"
+          className="mt-1 block w-full"
+          maxLength={2000}
+          required
         />
-        <Button type="submit">Submit</Button>
-      </form>
-    </Form>
+      </div>
+
+      {/* Submit Button */}
+      <div>
+        <Button type="submit" className="w-full bg-blue-600 text-white py-2 rounded-md">Submit</Button>
+      </div>
+    </form>
   );
 }
+
+export default ApplicationForm;
