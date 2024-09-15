@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/navbar";
 import { ThemeProvider } from "@/components/theme-provider";
+import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
   title: "Boilerthings",
@@ -28,6 +29,7 @@ export default function RootLayout({
               <div className="flex-grow mt-8">{children}</div>
             </div>
           </div>
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>
