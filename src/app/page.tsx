@@ -1,7 +1,17 @@
+import About from "@/components/landing/about";
+import Hero from "@/components/landing/hero";
+import Projects from "@/components/landing/projects";
+import Team from "@/components/landing/team";
+import Navbar from "@/components/navbar";
+
 export default function Home() {
   return (
-    <div className="flex items-center flex-grow h-full">
-      <p className="mb-8 text-3xl font-bold text-center">Home</p>
-    </div>
+    <>
+      <Navbar />
+      <Hero />
+      <About />
+      <Projects />
+      <Team />
+    </>
   );
 }

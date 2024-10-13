@@ -3,6 +3,7 @@ import "./globals.css";
 import Navbar from "@/components/navbar";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/toaster";
+import Footer from "@/components/footer";
 
 export const metadata: Metadata = {
   title: "Boilerthings",
@@ -15,7 +16,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className="scroll-smooth">
       <body>
         <ThemeProvider
           attribute="class"
@@ -24,10 +25,10 @@ export default function RootLayout({
           storageKey="boilerthings-theme"
         >
           <div className="bg-white dark:bg-zinc-900 dark:text-white">
-            <div className="flex flex-col w-full max-w-6xl min-h-screen p-4 mx-auto">
-              <Navbar />
-              <div className="flex-grow mt-8">{children}</div>
+            <div className="w-full max-w-screen-xl mx-auto relative">
+              {children}
             </div>
+            <Footer />
           </div>
           <Toaster />
         </ThemeProvider>
